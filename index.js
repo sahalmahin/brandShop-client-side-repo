@@ -30,6 +30,7 @@ async function run() {
 
 
         app.get('/car', async (req, res) => {
+            // const result = await carCollection.find().toArray();
             const cursor = carCollection.find();
             const result = await cursor.toArray();
             res.send(result);
@@ -43,6 +44,14 @@ async function run() {
         })
 
         app.post('/car', async (req, res) => {
+            const newCar = req.body;
+            console.log(newCar);
+            const result = await carCollection.insertOne(newCar);
+            res.send(result);
+        })
+
+
+        app.post('/carDetail/:id', async (req, res) => {
             const newCar = req.body;
             console.log(newCar);
             const result = await carCollection.insertOne(newCar);
