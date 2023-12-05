@@ -47,7 +47,6 @@ async function run() {
             res.send(result);
         })
 
-
         app.post('/carDetail/:id', async (req, res) => {
             const newCar = req.body;
             console.log(newCar);
