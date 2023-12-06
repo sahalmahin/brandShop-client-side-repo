@@ -3,12 +3,16 @@ const cors = require('cors');
 require('dotenv').config()
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 7000;
+
+// const corsConfig = { origin: '', credentials: true, methods: ['GET', 'POST', 'PUT', 'DELETE'] } 
+// app.use(cors(corsConfig)) 
+// app.options("", cors(corsConfig))
 
 app.use(cors());
 app.use(express.json());
 
-const uri = 'mongodb+srv://manhattanAuto:SDtcI9yB4sbIGwGy@cluster0.dygd3dy.mongodb.net/?retryWrites=true&w=majority';
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.dygd3dy.mongodb.net/?retryWrites=true&w=majority`;
 console.log(uri);
 
 const client = new MongoClient(uri, {
@@ -19,10 +23,11 @@ const client = new MongoClient(uri, {
     }
 });
 
+
 async function run() {
     try {
 
-     await client.connect();
+      client.connect();
 
         const carCollection = client.db('carDB').collection('car');
 
