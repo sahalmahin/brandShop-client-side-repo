@@ -5,8 +5,8 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 const uri = 'mongodb+srv://manhattanAuto:SDtcI9yB4sbIGwGy@cluster0.dygd3dy.mongodb.net/?retryWrites=true&w=majority';
 console.log(uri);
@@ -89,7 +89,6 @@ async function run() {
 run().catch(console.dir);
 
 app.get('/', (req, res) => {
-    
     res.send({car:"car server is running"});
 })
 
