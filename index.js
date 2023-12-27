@@ -3,11 +3,7 @@ const cors = require('cors');
 require('dotenv').config()
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
-const port = process.env.PORT || 7000;
-
-// const corsConfig = { origin: '', credentials: true, methods: ['GET', 'POST', 'PUT', 'DELETE'] } 
-// app.use(cors(corsConfig)) 
-// app.options("", cors(corsConfig))
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -23,14 +19,12 @@ const client = new MongoClient(uri, {
     }
 });
 
-
 async function run() {
     try {
 
       client.connect();
 
         const carCollection = client.db('carDB').collection('car');
-
 
         app.get('/car', async (req, res) => {
             const cursor = carCollection.find();
@@ -67,7 +61,7 @@ async function run() {
             const car = {
                 $set: {
                     name: updatedCar.name,
-                    brand: updatedCar.brand,
+                    brand_name: updatedCar.brand_name,
                     type: updatedCar.type,
                     price: updatedCar.price,
                     photo: updatedCar.photo,
@@ -85,8 +79,8 @@ async function run() {
             res.send(result);
         })
 
-        // await client.db("admin").command({ ping: 1 });
-        // console.log("Pinged your deployment. You successfully connected to MongoDB!");
+        await client.db("admin").command({ ping: 1 });
+        console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
         // await client.close();
     }
